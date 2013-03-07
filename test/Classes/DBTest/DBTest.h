@@ -2,6 +2,7 @@
 #define _DBTest_H_
 
 #include "../testBasic.h"
+#include "CCDatabase.h"
 
 using namespace std;
 USING_NS_CC;
@@ -41,23 +42,45 @@ public:
 
 class DBCreateDatabase : public DBDemo
 {
+private:
+	CCLabelTTF* m_hintLabel;
+	
 public:
     virtual void onEnter();
     virtual string subtitle();
+	
+	void onCreateDatabaseClicked();
+	void onDeleteDatabaseClicked();
 };
 
 class DBSQLFile : public DBDemo
 {
+private:
+	CCLabelTTF* m_hintLabel;
+	
 public:
     virtual void onEnter();
     virtual string subtitle();
+	
+	void onExecuteSQLFileClicked();
+	void onDeleteDatabaseClicked();
 };
 
 class DBTransaction : public DBDemo
 {
+private:
+	CCLabelTTF* m_hintLabel;
+	CCDatabase* m_db;
+	
 public:
+	DBTransaction();
+	virtual ~DBTransaction();
     virtual void onEnter();
     virtual string subtitle();
+	
+	void onInsertClicked();
+	void onCommitClicked();
+	void onRollbackClicked();
 };
 
 #endif

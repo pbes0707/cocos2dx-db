@@ -22,6 +22,8 @@
 		92A6710016E895FF008BE79D /* libcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92A670EF16E8922A008BE79D /* libcocos2dx.a */; };
 		92A6710116E89602008BE79D /* libcocos2dxdb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92A670FF16E89599008BE79D /* libcocos2dxdb.a */; };
 		92A6710316E89667008BE79D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 92A6710216E89667008BE79D /* libz.dylib */; };
+		92A6712116E8BA5F008BE79D /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 92A6712016E8BA5F008BE79D /* libsqlite3.dylib */; };
+		92A6712516E8C288008BE79D /* Files in Resources */ = {isa = PBXBuildFile; fileRef = 92A6712416E8C288008BE79D /* Files */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
 		BF3326F413690DA4007CAA22 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF3326F313690DA4007CAA22 /* RootViewController.mm */; };
@@ -76,6 +78,8 @@
 		92A670F416E893AF008BE79D /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		92A670F616E89599008BE79D /* cocos2dxdb.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2dxdb.xcodeproj; path = ../../proj.ios/cocos2dxdb.xcodeproj; sourceTree = "<group>"; };
 		92A6710216E89667008BE79D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		92A6712016E8BA5F008BE79D /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		92A6712416E8C288008BE79D /* Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Files; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BF3326F213690DA4007CAA22 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92A6712116E8BA5F008BE79D /* libsqlite3.dylib in Frameworks */,
 				92A6710316E89667008BE79D /* libz.dylib in Frameworks */,
 				92A6710116E89602008BE79D /* libcocos2dxdb.a in Frameworks */,
 				92A6710016E895FF008BE79D /* libcocos2dx.a in Frameworks */,
@@ -153,7 +158,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				92A6710216E89667008BE79D /* libz.dylib */,
 				15AA9C4015B7EC450033D6C2 /* Classes */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				080E96DDFE201D6D7F000001 /* ios */,
@@ -168,6 +172,8 @@
 			children = (
 				92A670E716E8922A008BE79D /* cocos2dx.xcodeproj */,
 				92A670F616E89599008BE79D /* cocos2dxdb.xcodeproj */,
+				92A6710216E89667008BE79D /* libz.dylib */,
+				92A6712016E8BA5F008BE79D /* libsqlite3.dylib */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				BF170DB012928DE900B8313A /* OpenGLES.framework */,
@@ -180,6 +186,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				92A6712416E8C288008BE79D /* Files */,
 				92A670F416E893AF008BE79D /* Images */,
 				D41A0AD0160F154A004552AE /* Default-568h@2x.png */,
 				7855E0DF153FEF240059DD9A /* Default.png */,
@@ -306,6 +313,7 @@
 				D41A0AD1160F154A004552AE /* Default-568h@2x.png in Resources */,
 				D446FD6E16102124000ADA7B /* Default@2x.png in Resources */,
 				92A670F516E893AF008BE79D /* Images in Resources */,
+				92A6712516E8C288008BE79D /* Files in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,7 +366,7 @@
 					"$(SRCROOT)/../../include",
 				);
 				INFOPLIST_FILE = "Test-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-O2";
 				PRODUCT_NAME = TestCpp;
 				PROVISIONING_PROFILE = "";
@@ -366,7 +374,6 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
-				VALID_ARCHS = "armv6 armv7 i386";
 			};
 			name = Debug;
 		};
@@ -396,7 +403,7 @@
 					"$(SRCROOT)/../../include",
 				);
 				INFOPLIST_FILE = "Test-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = TestCpp;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -417,10 +424,11 @@
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "0C43CFE2-55C4-429A-9A03-BFB76D31630B";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0C43CFE2-55C4-429A-9A03-BFB76D31630B";
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "armv6 armv7 i386";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -438,7 +446,7 @@
 				PROVISIONING_PROFILE = "0C43CFE2-55C4-429A-9A03-BFB76D31630B";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DB6844BA-2943-44DB-B10A-3A3F0E8A52B8";
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "armv6 armv7 i386";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};

@@ -77,6 +77,9 @@ public:
 	 * @return true means successful
 	 */
 	static bool createFolder(string path);
+	
+	/// delete a file
+	static bool deleteFile(string path);
 };
 
 NS_CC_END

@@ -48,6 +48,25 @@ void CCUtils::toLowercase(string& s) {
 	delete buf;
 }
 
+bool CCUtils::deleteFile(string path) {
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+	string mappedPath = mapLocalPath(path);
+	NSString* p = [NSString stringWithFormat:@"%s", mappedPath.c_str()];
+	NSFileManager* fm = [NSFileManager defaultManager];
+	NSError* error = nil;
+	[fm removeItemAtPath:p error:&error];
+	return error == nil;
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+	return unlink(path.c_str()) == 0;
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+	string mappedPath = mapLocalPath(path);
+	return DeleteFile(mappedPath.c_str()) != 0;
+#else
+	CCLOGERROR("CCUtils::mapLocalPath is not implemented for this platform, please finish it");
+	return false;
+#endif
+}
+
 string CCUtils::mapLocalPath(string path) {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC
 	if(CCFileUtils::sharedFileUtils()->isAbsolutePath(path)) {
@@ -100,7 +119,9 @@ bool CCUtils::createIntermediateFolders(string path) {
 bool CCUtils::createFolder(string path) {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC
 	string mappedPath = mapLocalPath(path);
-	return mkdir(path.c_str(), S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH) == 0;
+	NSString* nsPath = [NSString stringWithFormat:@"%s", mappedPath.c_str()];
+	NSFileManager* fm = [NSFileManager defaultManager];
+	return [fm createDirectoryAtPath:nsPath withIntermediateDirectories:YES attributes:NULL error:NULL];
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 	return mkdir(path.c_str(), S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH) == 0;
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
