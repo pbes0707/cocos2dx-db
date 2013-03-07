@@ -21,7 +21,7 @@ LOCAL_MODULE := cocos2dx-db
 LOCAL_SRC_FILES := $(call all-cpp-files-under,../src)
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../include \
                     $(LOCAL_PATH)/../include/platform/android
-LOCAL_EXPORT_LDLIBS := -L$(LOCAL_PATH)/libs/$(TARGET_ARCH) -lsqlite -llog
+LOCAL_EXPORT_LDLIBS := -L$(LOCAL_PATH)/system_libs/$(TARGET_ARCH) -lsqlite -llog
 LOCAL_C_INCLUDES := $(LOCAL_EXPORT_C_INCLUDES)
 LOCAL_LDLIBS := $(LOCAL_EXPORT_LDLIBS)
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
