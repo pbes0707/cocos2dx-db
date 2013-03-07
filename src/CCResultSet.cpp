@@ -51,7 +51,7 @@ CCResultSet::~CCResultSet() {
 	m_db = NULL;
 }
 
-CCResultSet* CCResultSet::make(CCDatabase* db, CCStatement* statement) {
+CCResultSet* CCResultSet::create(CCDatabase* db, CCStatement* statement) {
 	CCResultSet* rs = new CCResultSet(db, statement);
 	return (CCResultSet*)rs->autorelease();
 }

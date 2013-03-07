@@ -45,408 +45,200 @@ class CC_DLL CCDatabase : public CCObject {
 	friend class CCResultSet;
 
 private:
-	/// sqlite3 database pointer
-	sqlite3* m_db;
-
-	/// databae path
-	string m_databasePath;
-
-	/// true means database is in using
-	bool m_inUse;
-
-	/// true means database is in transaction
-	bool m_inTransaction;
-
-	/**
-	 * true表示执行过的预编译语句将被缓存
-	 */
+	/// true means compiled statement will be cached for later use
 	bool m_shouldCacheStatements;
 
-	/**
-	 * 数据库忙时，重试的次数，缺省是0，即一直重试直到成功为止
-	 */
-	int m_busyRetryTimeout;
-
-	/**
-	 * 预编译的语句缓冲
-	 */
+	/// cache of compiled statements
 	typedef map<string, CCStatement*> StatementMap;
 	StatementMap m_cachedStatements;
 
 private:
-	/**
-	 * 打印一条log警告当前数据库正在被使用
-	 */
+	/// print in use warning
 	void warnInUse();
 
-	/**
-	 * 获得缓存的语句
-	 *
-	 * @param sql 查询语句
-	 * @return \link CCStatement CCStatement\endlink, 如果没有找到对应的语句，返回NULL
-	 */
+	/// get cached statement
 	CCStatement* getCachedStatement(const char* sql);
 
-	/**
-	 * 设置一个缓存的语句
-	 *
-	 * @param sql 查询语句，用作语句对象的关键字
-	 * @param statement \link CCStatement CCStatement\endlink
-	 */
+	/// cache statement
 	void setCachedStatement(const char* sql, CCStatement* statement);
 
-	/**
-	 * 执行一个SQL查询语句
-	 *
-	 * @param sql 最终的SQL语句，不能包括格式化占位符
-	 * @return \link CCResultSet CCResultSet\endlink, 如果失败返回NULL
-	 */
+	/// execute a sql query statement, return result set if query is ok, or NULL if failed
 	CCResultSet* _executeQuery(const char* sql);
 
-	/**
-	 * 执行一个SQL非查询语句
-	 *
-	 * @param sql 最终的SQL语句，不能包括格式化占位符
-	 * @return 成功返回true，失败返回false
-	 */
+	/// execute a sql non-query statement, return true if execution is ok
 	bool _executeUpdate(const char* sql);
 
-	/**
-	 * 在结果集别关闭之后调用，这是由\link CCResultSet CCResultSet\endlink主动调用
-	 * 的回调方法
-	 *
-	 * @param rs \link CCResultSet CCResultSet\endlink
-	 */
+	/// invoked when result set is closed, called from CCResultSet
 	void postResultSetClosed(CCResultSet* rs);
 
 protected:
-	/**
-	 * 构造函数
-	 *
-	 * @param path 数据库文件绝对路径, 在iOS平台上会被映射到~/Documents下
-	 */
+	/// constructor
 	CCDatabase(string path);
 
 public:
 	virtual ~CCDatabase();
 
 	/**
-	 * 静态构造函数
+	 * create a database object
 	 *
-	 * @param path 数据库文件绝对路径. 在iOS平台上会被映射到~/Documents下
-	 * @return \link CCDatabase CCDatabase\endlink实例
+	 * @param platform-independent path of database file, will be mapped
+	 * @return database object
 	 */
-	static CCDatabase* make(string path);
+	static CCDatabase* create(string path);
 
-	/**
-	 * 数据库访问是否是线程安全的
-	 *
-	 * @return true表示是线程安全的
-	 */
+	/// is thread safe?
 	static bool isThreadSafe();
 
-	/**
-	 * 得到底层sqlite库的版本
-	 *
-	 * @return 版本字符串
-	 */
+	/// get sqlite version
 	static string sqliteLibVersion();
 
-	/**
-	 * 获得sqlite3的句柄
-	 *
-	 * @return sqlite3结构指针
-	 */
+	/// get sqlite handler
 	sqlite3* sqliteHandle() { return m_db; }
 
 	/**
-	 * 打开数据库
+	 * open database
 	 *
-	 * @param flags 打开时的标志，这个选项只能当sqlite版本号大于等于3.5.0时才能使用，
-	 * 		如果指定了这个标志但是sqlite版本不够，则会被忽略. 缺省值是0，即没有标志.
-	 * @return true表示打开成功
+	 * @param flags flag, only used for sqlite version larger than 3.5.0
+	 * @return true means opening is ok
 	 */
 	bool open(int flags = 0);
 
 	/**
-	 * 关闭数据库，释放资源。当然这个只是释放数据库相关的资源，CCDatabase实例并不会
-	 * 被释放。您可以重新调用open再次打开数据库。
+	 * close database, can calling open method to open database again.
+	 * close will be invoked in CCDatabase deconstructor so it is not mandatory
+	 * to call it
 	 *
-	 * \note
-	 * \link CCDatabase CCDatabase\endlink在析构中也会调用close，因此如果不再使用
-	 * 数据库，直接release也可以，不需要先调用close.
-	 *
-	 * @return true表示关闭成功
+	 * @return true means closing is ok
 	 */
 	bool close();
 
 	/**
-	 * 数据库是否已经打开
+	 * check database is opened or not
 	 *
-	 * @return true表示数据库已经打开
+	 * @return true means database is opened
 	 */
 	bool databaseExists();
 
-	/**
-	 * 验证是否数据库链接还是有效的
-	 *
-	 * @return true表示底层的数据路链接仍然是畅通的
-	 */
+	/// verify database connection is ok
 	bool goodConnection();
 
-	/**
-	 * 清除缓存的sql语句对象
-	 */
+	/// clear cached statements
 	void clearCachedStatements();
 
-	/**
-	 * 执行查询
-	 *
-	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
-	 * @return \link CCResultSet CCResultSet\endlink, 如果失败返回NULL
-	 */
+	/// execute a query
 	CCResultSet* executeQuery(string sql, ...);
 
-	/**
-	 * 执行更新
-	 *
-	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
-	 * @return 成功返回true，失败返回false
-	 */
+	/// execute update
 	bool executeUpdate(string sql, ...);
 
-	/**
-	 * 获得最近一次的操作错误信息
-	 *
-	 * @return 错误信息字符串，调用者不需要负责释放. 如果没有返回NULL
-	 */
+	/// get error message of last operation, or empty string if no error
 	string lastErrorMessage();
 
-	/**
-	 * 获得最近一次的操作错误码
-	 *
-	 * @return 错误码，或者SQLITE_OK表示无错误
-	 */
+	/// get error code of last operation, or SQLITE_OK if no error
 	int lastErrorCode();
 
-	/**
-	 * 最近的操作是否有错误发生
-	 *
-	 * @return true表示有错误发生
-	 */
+	/// true means error occurs in last operation
 	bool hadError();
 
-	/**
-	 * 最近一次插入的行的id
-	 *
-	 * @return 最近一次插入的行的id
-	 */
+	/// get row id of last insertion
 	int64_t lastInsertRowId();
 
-	/**
-	 * 检查数据库是否正在使用
-	 *
-	 * @return true表示数据库正在使用
-	 */
-	bool inUse() { return m_inUse || m_inTransaction; }
-
-	/**
-	 * 设置数据库是否正在使用
-	 *
-	 * @param value true表示数据库正在使用
-	 */
-	void setInUse(bool value) { m_inUse = value; }
-
-	/**
-	 * 是否要缓存预编译的语句
-	 *
-	 * @return true表示会缓存预编译的语句
-	 */
+	/// true means statement should be cached
 	bool shouldCacheStatements() { return m_shouldCacheStatements; }
 
-	/**
-	 * 设置是否要缓存预编译的语句
-	 *
-	 * @param value true表示会缓存预编译的语句
-	 */
+	/// set flag to cache statement or not
 	void setShouldCacheStatements(bool value);
 
-	/**
-	 * 返回最近一次操作改变的行数
-	 *
-	 * @return 最近一次操作改变的行数
-	 */
+	/// get row count which is affected by last operation
 	int changes();
 
-	/**
-	 * 回滚事务
-	 *
-	 * @return true表示回滚成功
-	 */
+	/// rollback transaction, true means successful
 	bool rollback();
 
-	/**
-	 * 提交事务
-	 *
-	 * @return true表示提交成功
-	 */
+	/// commit transaction, true means successful
 	bool commit();
 
-	/**
-	 * 开始一个延迟事务
+	/** 
+	 * begin a deferred transaction, true means successful.
 	 *
-	 * @return true表示启动成功
+	 * \note
+	 * The idea behind a deferred transaction is that all the changes to the database are 
+	 * kept in the cache memory (client memory or server memory). When this transaction has 
+	 * completed, all the database changes will be written to the database in one short 
+	 * transaction
 	 */
 	bool beginDeferredTransaction();
 
-	/**
-	 * 开始一个事务
-	 *
-	 * @return true表示启动成功
-	 */
+	/// begin a transaction, true means successful
 	bool beginTransaction();
 
-	/**
-	 * 检查某个表是否存在
-	 *
-	 * @param tableName 表名称
-	 * @return true表示表存在
-	 */
+	/// check a table is existent or not
 	bool tableExists(string tableName);
 
-	/**
-	 * 一个快捷的封装方法，如果查询返回的第一列是整数类型，则可以用这个方法快速
-	 * 得到结果
-	 *
-	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
-	 * @return 结果集中第一列的整数形式结果
-	 */
+	/// a helper method to quickly get integer result from a query
 	int intForQuery(string sql, ...);
 
-	/**
-	 * 一个快捷的封装方法，如果查询返回的第一列是长整数类型，则可以用这个方法快速
-	 * 得到结果
-	 *
-	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
-	 * @return 结果集中第一列的长整数形式结果
-	 */
+	/// a helper method to quickly get long result from a query
 	long longForQuery(string sql, ...);
 
-	/**
-	 * 一个快捷的封装方法，如果查询返回的第一列是64位整数类型，则可以用这个方法快速
-	 * 得到结果
-	 *
-	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
-	 * @return 结果集中第一列的64位整数形式结果
-	 */
+	/// a helper method to quickly get int64_t result from a query
 	int64_t int64ForQuery(string sql, ...);
 
-	/**
-	 * 一个快捷的封装方法，如果查询返回的第一列是布尔类型，则可以用这个方法快速
-	 * 得到结果
-	 *
-	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
-	 * @return 结果集中第一列的布尔结果
-	 */
+	/// a helper method to quickly get bool result from a query
 	bool boolForQuery(string sql, ...);
 
-	/**
-	 * 一个快捷的封装方法，如果查询返回的第一列是浮点类型，则可以用这个方法快速
-	 * 得到结果
-	 *
-	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
-	 * @return 结果集中第一列的浮点结果
-	 */
+	/// a helper method to quickly get double result from a query
 	double doubleForQuery(string sql, ...);
 
-	/**
-	 * 一个快捷的封装方法，如果查询返回的第一列是字符串类型，则可以用这个方法快速
-	 * 得到结果
-	 *
-	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
-	 * @return 结果集中第一列的字符串结果, 调用者要负责释放该字符串
-	 */
+	/// a helper method to quickly get string result from a query
 	string stringForQuery(string sql, ...);
 
-	/**
-	 * 一个快捷的封装方法，如果查询返回的第一列是二进制类型，则可以用这个方法快速
-	 * 得到结果
-	 *
-	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
-	 * @param outLen 用来返回数据长度
-	 * @return 结果集中第一列的二进制结果, 调用者要负责释放指针
-	 */
+	/// a helper method to quickly get blob result from a query
+	/// the data is copied so caller should release it
 	const void* dataForQuery(string sql, size_t* outLen, ...);
 
-	/**
-	 * 一个快捷的封装方法，如果查询返回的第一列是二进制类型，则可以用这个方法快速
-	 * 得到结果
-	 *
-	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
-	 * @param outLen 用来返回数据长度
-	 * @return 结果集中第一列的二进制结果, 调用者不需要负责释放指针
-	 */
+	/// a helper method to quickly get blob result from a query
+	/// the data is not copied so caller should NOT release it
 	const void* dataNoCopyForQuery(string sql, size_t* outLen, ...);
 
-	/**
-	 * 校验sql语句是否合法
-	 *
-	 * @param sql SQL语句，可以包含格式化占位符, 这个参数后面可以跟随和格式化占位符数量相等的参数
-	 * @return NULL表示语句合法，如果不为NULL，表示不合法且其是一个错误字符串，调用者不需要负责释放该字符串
-	 */
+	/// validate sql statement, return empty string if valid
 	string validateSQL(string sql, ...);
 
-	/**
-	 * 得到数据库的schema
-	 *
-	 * @return \link CCResultSet CCResultSet\endlink
-	 */
+	/// get database schema
 	CCResultSet* getSchema();
 
-	/**
-	 * 得到某个表的schema
-	 *
-	 * @param tableName 表名
-	 * @return \link CCResultSet CCResultSet\endlink
-	 */
+	/// get table schema
 	CCResultSet* getTableSchema(string tableName);
 
-	/**
-	 * 检查某个表中是否存在某列
-	 *
-	 * @param tableName 表名
-	 * @param columnName 列名
-	 * @return true表示该列存在
-	 */
+	/// check a column is existent or not
 	bool columnExists(string tableName, string columnName);
 
 	/**
-	 * 执行一个SQL文件, 文件的执行会在一个事务中进行，因此要么全部成功要么失败
+	 * execute a sql file in a transaction
 	 *
-	 * @param path sql文件的路径，文件必须是utf-8编码
-	 * @param isFile true表示\c path 是一个文件系统路径，false表示\c path 是一个assets下的相对路径, 缺省是false
-	 * @return true表示执行成功，false表示失败
+	 * @param path sql file absolute path, will be mapped to platform format
+	 * @return true means execution is ok
 	 */
-	bool executeSQL(string path, bool isFile = false);
+	bool executeSQL(string path);
 
 	/**
-	 * 执行一个SQL文件, 文件的执行会在一个事务中进行，因此要么全部成功要么失败
+	 * execute a sql file in a transaction
 	 *
-	 * @param data sql文件的原始字节数据
-	 * @param length data的长度
-	 * @return true表示执行成功，false表示失败
+	 * @param data raw data of sql file
+	 * @param length data byte length
+	 * @return true means execution is ok
 	 */
 	bool executeSQL(const void* data, size_t length);
-
-	/*
-	 * setter and getter
-	 */
-
-	const string& getDatabasePath() { return m_databasePath; }
-	sqlite3* getSqlite3Handle() { return m_db; }
-	int getBusyRetryTimeout() { return m_busyRetryTimeout; }
-	void setBusyRetryTimeout(int c) { m_busyRetryTimeout = c; }
+	
+	CC_SYNTHESIZE_READONLY_PASS_BY_REF(string, m_databasePath, DatabasePath);
+	CC_SYNTHESIZE_READONLY(sqlite3*, m_db, Sqlite3Handle);
+	CC_SYNTHESIZE(int, m_busyRetryTimeout, BusyRetryTimeout);
+	CC_SYNTHESIZE_READONLY(bool, m_inTransaction, InTransaction);
+	CC_SYNTHESIZE(bool, m_inUse, InUse);
+	
+	// is prefix method because CC_SYNTHESIZE macro always use get
 	bool isInTransaction() { return m_inTransaction; }
+	bool isInUse() { return m_inUse || m_inTransaction; }
 };
 
 NS_CC_END

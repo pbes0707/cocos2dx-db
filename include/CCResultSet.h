@@ -34,56 +34,29 @@ class CCDatabase;
 class CCStatement;
 
 /**
- * @class CCResultSet
- *
- * 封装sqlite3返回的结果集
+ * result set
  */
 class CC_DLL CCResultSet : public CCObject {
 	friend class CCDatabase;
 
 private:
-	/**
-	 * 相关的\link CCDatabase CCDatabase\endlink
-	 */
-    CCDatabase* m_db;
-
-    /**
-     * 语句对象
-     */
-    CCStatement* m_statement;
-
-    /**
-     * 结果集列名
-     */
+	/// column names in result set
 	typedef vector<string> StringList;
     StringList m_columnNames;
 
-    /**
-     * 查询语句
-     */
+    /// sql string which generates this result set
     string m_sql;
 
 protected:
-    /**
-     * 构造函数
-     *
-     * @param db 相关的\link CCDatabase CCDatabase\endlink对象
-     * @param statement 查询语句对象
-     */
+    /// constructor
     CCResultSet(CCDatabase* db, CCStatement* statement);
 
-    /**
-     * 静态构造函数
-     *
-     * @param db 相关的\link CCDatabase CCDatabase\endlink对象
-     * @param statement 查询语句对象
-     * @return \link CCResultSet CCResultSet\endlink
-     */
-    static CCResultSet* make(CCDatabase* db, CCStatement* statement);
+	/// create a result set
+    static CCResultSet* create(CCDatabase* db, CCStatement* statement);
 
     /**
-     * 关闭结果集, 关闭后的结果集不能再被使用。一般不需要主动调用这个方法，因为
-     * 析构函数中会调用close
+	 * close this result set, after closing, result set can NOT be used.
+	 * deconstructor will also call it so it is not mandatory to call it
      */
     void close();
 
@@ -91,196 +64,88 @@ public:
     virtual ~CCResultSet();
 
     /**
-     * 光标切换到下一行结果
+	 * move cursor to next row
      *
-     * @return true表示成功切换到下一行，false表示无更多数据
+     * @return true means ok, false mean no more data
      */
     bool next();
 
     /**
-     * 是否还有更多结果
+	 * has more row?
      *
-     * @return true表示还有更多结果
+     * @return true means there is other rows after current cursor
      */
     bool hasAnotherRow();
 
-    /**
-     * 得到结果集中的列数
-     *
-     * @return 结果集中的列数
-     */
+	/// get column count in result set
     int columnCount();
 
-    /**
-     * 检查某列是否为空值
-     *
-     * @param columnIdx 列索引
-     * @return true表示该行为空
-     */
+	/// is type of a column is null?
     bool columnIndexIsNull(int columnIdx);
 
-    /**
-     * 检查某列是否为空值
-     *
-     * @param columnName 列名称
-     * @return true表示该行为空
-     */
+	/// is type of a column is null?
     bool columnIsNull(string columnName);
 
-    /**
-     * 根据列名得到列索引
-     *
-     * @param columnName 列名称
-     * @return 列索引，从0开始
-     */
+	/// get column index by name
     int columnIndexForName(string columnName);
 
-    /**
-     * 根据列索引得到列名
-     *
-     * @param columnIdx 列索引
-     * @return 列名, 如果索引无效，返回NULL。调用者不需要负责释放指针
-     */
+	/// get column name by index, or empty string if index is invalid
     string columnNameForIndex(int columnIdx);
 
-    /**
-     * 得到某列的整形数据, 该列的类型如果不是整形，则会被自动转换成整形
-     *
-     * @param columnName 列名
-     * @return 整形数值
-     */
+	/// get integer value in a column at current cursor
     int intForColumn(string columnName);
 
-    /**
-     * 得到某列的整形数据, 该列的类型如果不是整形，则会被自动转换成整形
-     *
-     * @param columnIdx 列索引
-     * @return 整形数值
-     */
+	/// get integer value in a column at current cursor
     int intForColumnIndex(int columnIdx);
 
-    /**
-     * 得到某列的长整形数据, 该列的类型如果不是长整形，则会被自动转换成64位整数形式，再转换为长整形
-     *
-     * @param columnName 列名
-     * @return 长整形数值
-     */
+	/// get long value in a column at current cursor
     long longForColumn(string columnName);
 
-    /**
-     * 得到某列的长整形数据, 该列的类型如果不是长整形，则会被自动转换成64位整数形式，再转换为长整形
-     *
-     * @param columnIdx 列索引
-     * @return 长整形数值
-     */
+	/// get long value in a column at current cursor
     long longForColumnIndex(int columnIdx);
 
-    /**
-     * 得到某列的64位整数数据, 该列的类型如果不是64位整数，则会被自动转换成64位整数形式
-     *
-     * @param columnName 列名
-     * @return 64位整数值
-     */
+	/// get int64_t value in a column at current cursor
     int64_t int64ForColumn(string columnName);
 
-    /**
-     * 得到某列的64位整数数据, 该列的类型如果不是64位整数，则会被自动转换成64位整数形式
-     *
-     * @param columnIdx 列索引
-     * @return 64位整数值
-     */
+	/// get int64_t value in a column at current cursor
     int64_t int64ForColumnIndex(int columnIdx);
 
-    /**
-     * 得到某列的布尔数据, 该列的类型如果不是布尔，则会被自动转换成整数形式，再判断整数值是否非0
-     *
-     * @param columnName 列名
-     * @return 布尔值
-     */
+	/// get bool value in a column at current cursor
     bool boolForColumn(string columnName);
 
-    /**
-     * 得到某列的布尔数据, 该列的类型如果不是布尔，则会被自动转换成整数形式，再判断整数值是否非0
-     *
-     * @param columnIdx 列索引
-     * @return 布尔值
-     */
+	/// get bool value in a column at current cursor
     bool boolForColumnIndex(int columnIdx);
 
-    /**
-     * 得到某列的浮点数据, 该列的类型如果不是浮点，则会被自动转换成浮点形式
-     *
-     * @param columnName 列名
-     * @return 浮点值
-     */
+	/// get double value in a column at current cursor
     double doubleForColumn(string columnName);
 
-    /**
-     * 得到某列的浮点数据, 该列的类型如果不是浮点，则会被自动转换成浮点形式
-     *
-     * @param columnIdx 列索引
-     * @return 浮点值
-     */
+	/// get double value in a column at current cursor
     double doubleForColumnIndex(int columnIdx);
 
-    /**
-     * 得到某列的字符串数据，该列的类型如果不是字符串，则会被自动转换成字符串形式
-     *
-     * @param columnName 列名
-     * @return 字符串数据，调用者要负责释放该指针
-     */
+	/// get string value in a column at current cursor
     string stringForColumn(string columnName);
 
-    /**
-     * 得到某列的字符串数据，该列的类型如果不是字符串，则会被自动转换成字符串形式
-     *
-     * @param columnIdx 列索引
-     * @return 字符串数据，调用者要负责释放该指针
-     */
+	/// get string value in a column at current cursor
     string stringForColumnIndex(int columnIdx);
 
-    /**
-     * 得到某列的二进制数据，该列的类型如果不是二进制数据，则会被自动转换成二进制形式
-     *
-     * @param columnName 列名
-     * @param outLen 用来返回数据长度，不能为NULL
-     * @return 二进制数据，这份数据是数据库中内容的拷贝，所以调用者要负责释放该指针
-     */
+	/// get blob value in a column at current cursor
+	/// returned data is copied from original data so caller should release it
     const void* dataForColumn(string columnName, size_t* outLen);
 
-    /**
-     * 得到某列的二进制数据，该列的类型如果不是二进制数据，则会被自动转换成二进制形式
-     *
-     * @param columnIdx 列索引
-     * @param outLen 用来返回数据长度，不能为NULL
-     * @return 二进制数据，这份数据是数据库中内容的拷贝，所以调用者要负责释放该指针
-     */
+	/// get blob value in a column at current cursor
+	/// returned data is copied from original data so caller should release it
     const void* dataForColumnIndex(int columnIdx, size_t* outLen);
 
-    /**
-     * 得到某列的二进制数据，该列的类型如果不是二进制数据，则会被自动转换成二进制形式
-     *
-     * @param columnName 列名
-     * @param outLen 用来返回数据长度，不能为NULL
-     * @return 二进制数据，这份数据是数据库中的内容，所以调用者不需要释放该指针
-     */
+	/// get blob value in a column at current cursor
+	/// returned data is not copied so caller should NOT release it
     const void* dataNoCopyForColumn(string columnName, size_t* outLen);
 
-    /**
-     * 得到某列的二进制数据，该列的类型如果不是二进制数据，则会被自动转换成二进制形式
-     *
-     * @param columnIdx 列索引
-     * @param outLen 用来返回数据长度，不能为NULL
-     * @return 二进制数据，这份数据是数据库中的内容，所以调用者不需要释放该指针
-     */
+	/// get blob value in a column at current cursor
+	/// returned data is not copied so caller should NOT release it
     const void* dataNoCopyForColumnIndex(int columnIdx, size_t* outLen);
-
-    /*
-     * getter and setter
-     */
-
-    CCDatabase* getDatabase() { return m_db; }
-    CCStatement* getStatement() { return m_statement; }
+	
+	CC_SYNTHESIZE_READONLY(CCDatabase*, m_db, Database);
+	CC_SYNTHESIZE_READONLY(CCStatement*, m_statement, Statement);
 };
 
 NS_CC_END

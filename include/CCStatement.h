@@ -40,19 +40,7 @@ class CC_DLL CCStatement : public CCObject {
 	friend class CCDatabase;
 
 private:
-	/**
-	 * sqlite3的语句对象
-	 */
-    sqlite3_stmt* m_statement;
-
-    /**
-     * 查询字符串
-     */
-    string m_query;
-
-    /**
-     * 被引用的次数
-     */
+    /// reference count
     int m_useCount;
 
 private:
@@ -60,44 +48,18 @@ private:
 
 public:
     virtual ~CCStatement();
-
-    /**
-     * 设置查询语句
-     *
-     * @param q 查询语句，其内容会被复制，因此方法返回后可以立刻释放
-     */
-    void setQuery(string q) { m_query = q; }
-
-    /**
-     * 获得查询语句
-     *
-     * @return 查询语句
-     */
-    const string& getQuery() { return m_query; }
-
-    /**
-     * 设置底层的语句对象
-     *
-     * @param s sqlite3_stmt结构指针
-     */
-    void setStatement(sqlite3_stmt* s);
-
-    /**
-     * 得到底层的语句对象
-     *
-     * @return sqlite3_stmt结构指针
-     */
-    sqlite3_stmt* getStatement() { return m_statement; }
-
-    /**
-     * 关闭底层的语句对象
-     */
+	
+	/// close statement
     void close();
-
-    /**
-     * 重置底层的语句对象
-     */
+	
+    /// reset statement
     void reset();
+	
+	/// set statement
+	void setStatement(sqlite3_stmt* s);
+	
+	CC_SYNTHESIZE_PASS_BY_REF(string, m_query, Query);
+	CC_SYNTHESIZE_READONLY(sqlite3_stmt*, m_statement, Statement);
 };
 
 NS_CC_END

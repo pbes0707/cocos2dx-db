@@ -48,7 +48,7 @@ CCDatabase::~CCDatabase() {
 	}
 }
 
-CCDatabase* CCDatabase::make(string path) {
+CCDatabase* CCDatabase::create(string path) {
 	CCDatabase* d = new CCDatabase(path);
 	return (CCDatabase*)d->autorelease();
 }
@@ -393,7 +393,7 @@ CCResultSet* CCDatabase::_executeQuery(const char* sql) {
     }
 
     // now query
-    rs = CCResultSet::make(this, statement);
+    rs = CCResultSet::create(this, statement);
 
     // set in use flag
     setInUse(false);
@@ -722,7 +722,7 @@ bool CCDatabase::columnExists(string tableName, string columnName) {
     return existent;
 }
 
-bool CCDatabase::executeSQL(string path, bool isFile) {
+bool CCDatabase::executeSQL(string path) {
 	unsigned long len;
 	string mappedPath = CCUtils::mapLocalPath(path);
 	unsigned char* raw = CCFileUtils::sharedFileUtils()->getFileData(mappedPath.c_str(), "rb", &len);
