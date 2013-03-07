@@ -26,6 +26,8 @@
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC
 	#include <sys/stat.h>
 	#import <Foundation/Foundation.h>
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+	#include <sys/stat.h>
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	#include <direct.h>
 	#define mkdir _mkdir
