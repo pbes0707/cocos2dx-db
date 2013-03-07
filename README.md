@@ -10,7 +10,7 @@ and then clone cocos2dx-db in the same parent folder.
 
 Demo
 ===========
-There is a test project in test folder, it supports iOS and android.
+There is a test project in test folder, it supports iOS and android. If you want other platform, do it yourself.
 
 How to use
 ===========
