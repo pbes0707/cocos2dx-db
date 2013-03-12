@@ -7,15 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92774AFB16EF1E6C008E67C8 /* CCDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92774AF716EF1E6C008E67C8 /* CCDatabase.cpp */; };
+		92774AFC16EF1E6C008E67C8 /* CCResultSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92774AF816EF1E6C008E67C8 /* CCResultSet.cpp */; };
+		92774AFD16EF1E6C008E67C8 /* CCStatement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92774AF916EF1E6C008E67C8 /* CCStatement.cpp */; };
 		92B516E816E86020009F3536 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B516E716E86020009F3536 /* Foundation.framework */; };
-		92DFBC0D16E860940016648F /* CCDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DFBC0A16E860940016648F /* CCDatabase.cpp */; };
-		92DFBC0E16E860940016648F /* CCResultSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DFBC0B16E860940016648F /* CCResultSet.cpp */; };
-		92DFBC0F16E860940016648F /* CCStatement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DFBC0C16E860940016648F /* CCStatement.cpp */; };
 		92DFBC1B16E861350016648F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 92DFBC1A16E861350016648F /* libsqlite3.dylib */; };
-		92DFBC3616E8826D0016648F /* CCUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DFBC3416E8826D0016648F /* CCUtils.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		92774B0716EF1E81008E67C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92774AFF16EF1E81008E67C8 /* cocos2dxcommon.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 92B516E416E86020009F3536;
+			remoteInfo = cocos2dxcommon;
+		};
 		92DFBC1716E860D00016648F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 92DFBC1016E860D00016648F /* cocos2dx.xcodeproj */;
@@ -38,19 +44,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		92774AEF16EF1E6C008E67C8 /* CCDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDatabase.h; sourceTree = "<group>"; };
+		92774AF016EF1E6C008E67C8 /* CCResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCResultSet.h; sourceTree = "<group>"; };
+		92774AF116EF1E6C008E67C8 /* CCStatement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStatement.h; sourceTree = "<group>"; };
+		92774AF516EF1E6C008E67C8 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		92774AF716EF1E6C008E67C8 /* CCDatabase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDatabase.cpp; sourceTree = "<group>"; };
+		92774AF816EF1E6C008E67C8 /* CCResultSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCResultSet.cpp; sourceTree = "<group>"; };
+		92774AF916EF1E6C008E67C8 /* CCStatement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStatement.cpp; sourceTree = "<group>"; };
+		92774AFF16EF1E81008E67C8 /* cocos2dxcommon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2dxcommon.xcodeproj; path = "../../cocos2dx-common/proj.ios/cocos2dxcommon.xcodeproj"; sourceTree = "<group>"; };
 		92B516E416E86020009F3536 /* libcocos2dxdb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcocos2dxdb.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92B516E716E86020009F3536 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		92DFBC0616E8608D0016648F /* CCDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDatabase.h; sourceTree = "<group>"; };
-		92DFBC0716E8608D0016648F /* CCResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCResultSet.h; sourceTree = "<group>"; };
-		92DFBC0816E8608D0016648F /* CCStatement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStatement.h; sourceTree = "<group>"; };
-		92DFBC0A16E860940016648F /* CCDatabase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDatabase.cpp; sourceTree = "<group>"; };
-		92DFBC0B16E860940016648F /* CCResultSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCResultSet.cpp; sourceTree = "<group>"; };
-		92DFBC0C16E860940016648F /* CCStatement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStatement.cpp; sourceTree = "<group>"; };
 		92DFBC1016E860D00016648F /* cocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2dx.xcodeproj; path = "../../cocos2d-x/cocos2dx/proj.ios/cocos2dx.xcodeproj"; sourceTree = "<group>"; };
 		92DFBC1A16E861350016648F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		92DFBC1C16E861A50016648F /* cocos2dxdb-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cocos2dxdb-Prefix.pch"; sourceTree = SOURCE_ROOT; };
-		92DFBC3416E8826D0016648F /* CCUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCUtils.cpp; sourceTree = "<group>"; };
-		92DFBC3716E882890016648F /* CCUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCUtils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,11 +72,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		92774AEE16EF1E6C008E67C8 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				92774AEF16EF1E6C008E67C8 /* CCDatabase.h */,
+				92774AF016EF1E6C008E67C8 /* CCResultSet.h */,
+				92774AF116EF1E6C008E67C8 /* CCStatement.h */,
+				92774AF316EF1E6C008E67C8 /* platform */,
+			);
+			name = include;
+			path = "../cocos2dx-db/include";
+			sourceTree = "<group>";
+		};
+		92774AF316EF1E6C008E67C8 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				92774AF416EF1E6C008E67C8 /* android */,
+			);
+			path = platform;
+			sourceTree = "<group>";
+		};
+		92774AF416EF1E6C008E67C8 /* android */ = {
+			isa = PBXGroup;
+			children = (
+				92774AF516EF1E6C008E67C8 /* sqlite3.h */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		92774AF616EF1E6C008E67C8 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				92774AF716EF1E6C008E67C8 /* CCDatabase.cpp */,
+				92774AF816EF1E6C008E67C8 /* CCResultSet.cpp */,
+				92774AF916EF1E6C008E67C8 /* CCStatement.cpp */,
+			);
+			name = src;
+			path = "../cocos2dx-db/src";
+			sourceTree = "<group>";
+		};
+		92774B0016EF1E81008E67C8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				92774B0816EF1E81008E67C8 /* libcocos2dxcommon.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		92B516D916E86020009F3536 = {
 			isa = PBXGroup;
 			children = (
-				92DFBC0516E8608D0016648F /* include */,
-				92DFBC0916E860940016648F /* src */,
+				92774AEE16EF1E6C008E67C8 /* include */,
+				92774AF616EF1E6C008E67C8 /* src */,
 				92B516EA16E86020009F3536 /* Supporting Files */,
 				92B516E616E86020009F3536 /* Frameworks */,
 				92B516E516E86020009F3536 /* Products */,
@@ -88,6 +141,7 @@
 		92B516E616E86020009F3536 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				92774AFF16EF1E81008E67C8 /* cocos2dxcommon.xcodeproj */,
 				92DFBC1016E860D00016648F /* cocos2dx.xcodeproj */,
 				92DFBC1A16E861350016648F /* libsqlite3.dylib */,
 				92B516E716E86020009F3536 /* Foundation.framework */,
@@ -102,30 +156,6 @@
 			);
 			name = "Supporting Files";
 			path = cocos2dxdb;
-			sourceTree = "<group>";
-		};
-		92DFBC0516E8608D0016648F /* include */ = {
-			isa = PBXGroup;
-			children = (
-				92DFBC3716E882890016648F /* CCUtils.h */,
-				92DFBC0616E8608D0016648F /* CCDatabase.h */,
-				92DFBC0716E8608D0016648F /* CCResultSet.h */,
-				92DFBC0816E8608D0016648F /* CCStatement.h */,
-			);
-			name = include;
-			path = ../include;
-			sourceTree = "<group>";
-		};
-		92DFBC0916E860940016648F /* src */ = {
-			isa = PBXGroup;
-			children = (
-				92DFBC0A16E860940016648F /* CCDatabase.cpp */,
-				92DFBC0B16E860940016648F /* CCResultSet.cpp */,
-				92DFBC0C16E860940016648F /* CCStatement.cpp */,
-				92DFBC3416E8826D0016648F /* CCUtils.cpp */,
-			);
-			name = src;
-			path = ../src;
 			sourceTree = "<group>";
 		};
 		92DFBC1116E860D00016648F /* Products */ = {
@@ -180,6 +210,10 @@
 					ProductGroup = 92DFBC1116E860D00016648F /* Products */;
 					ProjectRef = 92DFBC1016E860D00016648F /* cocos2dx.xcodeproj */;
 				},
+				{
+					ProductGroup = 92774B0016EF1E81008E67C8 /* Products */;
+					ProjectRef = 92774AFF16EF1E81008E67C8 /* cocos2dxcommon.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -189,6 +223,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		92774B0816EF1E81008E67C8 /* libcocos2dxcommon.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libcocos2dxcommon.a;
+			remoteRef = 92774B0716EF1E81008E67C8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		92DFBC1816E860D00016648F /* libcocos2dx.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -203,10 +244,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92DFBC0D16E860940016648F /* CCDatabase.cpp in Sources */,
-				92DFBC0E16E860940016648F /* CCResultSet.cpp in Sources */,
-				92DFBC0F16E860940016648F /* CCStatement.cpp in Sources */,
-				92DFBC3616E8826D0016648F /* CCUtils.cpp in Sources */,
+				92774AFB16EF1E6C008E67C8 /* CCDatabase.cpp in Sources */,
+				92774AFC16EF1E6C008E67C8 /* CCResultSet.cpp in Sources */,
+				92774AFD16EF1E6C008E67C8 /* CCStatement.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +310,7 @@
 					"$(SRCROOT)/../../cocos2d-x/cocos2dx",
 					"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/ios",
 					"$(SRCROOT)/../../cocos2d-x/cocos2dx/kazmath/include",
+					"$(SRCROOT)/../../cocos2dx-common/cocos2dx-common/include",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -290,6 +331,7 @@
 					"$(SRCROOT)/../../cocos2d-x/cocos2dx",
 					"$(SRCROOT)/../../cocos2d-x/cocos2dx/platform/ios",
 					"$(SRCROOT)/../../cocos2d-x/cocos2dx/kazmath/include",
+					"$(SRCROOT)/../../cocos2dx-common/cocos2dx-common/include",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
