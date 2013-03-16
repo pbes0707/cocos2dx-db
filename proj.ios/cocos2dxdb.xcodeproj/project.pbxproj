@@ -52,6 +52,7 @@
 		92774AF816EF1E6C008E67C8 /* CCResultSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCResultSet.cpp; sourceTree = "<group>"; };
 		92774AF916EF1E6C008E67C8 /* CCStatement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStatement.cpp; sourceTree = "<group>"; };
 		92774AFF16EF1E81008E67C8 /* cocos2dxcommon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2dxcommon.xcodeproj; path = "../../cocos2dx-common/proj.ios/cocos2dxcommon.xcodeproj"; sourceTree = "<group>"; };
+		929DCDE916F4AD9100FE9A9F /* cocos2d-db.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cocos2d-db.h"; sourceTree = "<group>"; };
 		92B516E416E86020009F3536 /* libcocos2dxdb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcocos2dxdb.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92B516E716E86020009F3536 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		92DFBC1016E860D00016648F /* cocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2dx.xcodeproj; path = "../../cocos2d-x/cocos2dx/proj.ios/cocos2dx.xcodeproj"; sourceTree = "<group>"; };
@@ -79,6 +80,7 @@
 				92774AF016EF1E6C008E67C8 /* CCResultSet.h */,
 				92774AF116EF1E6C008E67C8 /* CCStatement.h */,
 				92774AF316EF1E6C008E67C8 /* platform */,
+				929DCDE916F4AD9100FE9A9F /* cocos2d-db.h */,
 			);
 			name = include;
 			path = "../cocos2dx-db/include";
