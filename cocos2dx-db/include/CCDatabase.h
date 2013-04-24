@@ -117,7 +117,7 @@ public:
 	 *
 	 * @return true means database is opened
 	 */
-	bool databaseExists();
+	bool databaseOpened();
 
 	/// verify database connection is ok
 	bool goodConnection();

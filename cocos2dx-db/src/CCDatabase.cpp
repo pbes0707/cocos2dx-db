@@ -164,7 +164,7 @@ void CCDatabase::clearCachedStatements() {
 	m_cachedStatements.clear();
 }
 
-bool CCDatabase::databaseExists() {
+bool CCDatabase::databaseOpened() {
     if (!m_db) {
         CCLOGWARN("The CCDatabase %d is not open.", this);
         return false;
