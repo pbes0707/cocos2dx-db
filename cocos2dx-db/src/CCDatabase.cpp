@@ -187,7 +187,7 @@ bool CCDatabase::executeUpdate(string sql, ...) {
 
 bool CCDatabase::_executeUpdate(const char* sql) {
 	// database check
-    if (!databaseExists()) {
+    if (!databaseOpened()) {
         return NULL;
     }
 
@@ -322,7 +322,7 @@ CCResultSet* CCDatabase::executeQuery(string sql, ...) {
 
 CCResultSet* CCDatabase::_executeQuery(const char* sql) {
 	// database check
-    if (!databaseExists()) {
+    if (!databaseOpened()) {
         return NULL;
     }
 
