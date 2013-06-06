@@ -230,6 +230,15 @@ public:
 	 */
 	bool executeSQL(const void* data, size_t length);
 	
+	// get database version
+	int getVersion();
+	
+	/**
+	 * set database version. By default, database version is
+	 * 1 when it is created
+	 */
+	void setVersion(int v);
+	
 	CC_SYNTHESIZE_READONLY_PASS_BY_REF(string, m_databasePath, DatabasePath);
 	CC_SYNTHESIZE_READONLY(sqlite3*, m_db, Sqlite3Handle);
 	CC_SYNTHESIZE(int, m_busyRetryTimeout, BusyRetryTimeout);

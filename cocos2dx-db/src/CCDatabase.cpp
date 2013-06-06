@@ -541,6 +541,14 @@ bool CCDatabase::tableExists(string tableName) {
     return returnBool;
 }
 
+int CCDatabase::getVersion() {
+	return intForQuery("PRAGMA user_version;");
+}
+
+void CCDatabase::setVersion(int v) {
+	executeUpdate("PRAGMA user_version = %d;", v);
+}
+
 int CCDatabase::intForQuery(string sql, ...) {
 	// generate final sql string
     va_list args;
