@@ -188,13 +188,13 @@ bool CCDatabase::executeUpdate(string sql, ...) {
 bool CCDatabase::_executeUpdate(const char* sql) {
 	// database check
     if (!databaseOpened()) {
-        return NULL;
+        return false;
     }
 
     // is in use?
     if (m_inUse) {
         warnInUse();
-        return NULL;
+        return false;
     }
 
     // use it now
